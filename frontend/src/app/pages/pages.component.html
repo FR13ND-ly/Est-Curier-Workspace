@@ -1,0 +1,9 @@
+<div style="margin-top: 1vh;">
+    <img *ngFor="let image of pages" style="cursor: pointer; margin-bottom: 2vh;" (click)="showImage(image)" class="col s3" src="{{ image }}">
+    <div class="col s12 file-field input-field">
+        <div class="btn col s12">
+            <span>Adaugă păgini</span>
+            <input type="file"(change)="setPages($event)">
+        </div>
+    </div>
+</div>

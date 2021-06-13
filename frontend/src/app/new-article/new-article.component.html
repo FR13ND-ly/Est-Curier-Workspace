@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col s12" style="margin-bottom: 5%;">
+        <input type="text" placeholder="Titlu" [(ngModel)]="article.title">
+        <textarea type="text" placeholder="Text" [(ngModel)]="article.text"></textarea>
+    </div>
+    <div class="col s12">
+        <h4>Pagina:</h4>
+        <mat-slider min="1" max="8" step="1" thumbLabel style="width: 100%;" [(ngModel)]="article.pag"></mat-slider>
+    </div>
+    <button class="btn right" (click)="addArticle()">Adaugă</button>
+</div>

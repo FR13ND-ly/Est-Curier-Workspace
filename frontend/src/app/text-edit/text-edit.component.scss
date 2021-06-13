@@ -1,0 +1,26 @@
+$sliderColor: #3f51b5;
+
+textarea {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%; 
+    height: 50vh;
+    font-size: 18px;
+    overflow: auto;
+    outline: none;
+    resize: none;
+    line-height: normal;
+    user-select: none;
+}
+
+::ng-deep .mat-slider-thumb {
+    background-color: $sliderColor!important;
+}
+
+::ng-deep.mat-slider-track-fill{
+    background-color: $sliderColor!important;
+}
+
+::ng-deep .mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb-label, .mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb{
+    background-color: $sliderColor!important;
+}

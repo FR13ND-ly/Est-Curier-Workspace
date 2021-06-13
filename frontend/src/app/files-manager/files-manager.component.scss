@@ -1,0 +1,11 @@
+.image {
+    object-fit: cover; 
+    overflow: hidden;
+    height: 150px;
+    width: 100%;
+}
+
+.selected {
+    background-color: #263238;
+    color: #fff;
+}

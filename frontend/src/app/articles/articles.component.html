@@ -1,0 +1,59 @@
+<div class = "col s4">
+    <div class="card articleContainer">
+        <h4 class="articleMenuHeader">Disponibile</h4>
+        <div class="articleLists"
+            cdkDropList
+            #available = "cdkDropList"
+            [cdkDropListData] = "articleLists[0]"
+            [cdkDropListConnectedTo]="[positionated, published]"
+            (cdkDropListDropped)="drop($event)">
+            <div class="card article" *ngFor="let article of articleLists[0]" (click)="openTextDialog(article)" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
+                <h5 style="margin-bottom: 0%;">{{ article.date }}</h5>
+                <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+            </div>
+            <div *ngIf="articleLists[0].length == 0" class="space">
+            </div>
+        </div>
+        <a class="waves-effect waves-light waves-blue btn btn-flat" (click)="openNewArticleDialog(1)"><i class="material-icons left">add</i>adaugă un articol</a>
+    </div>
+</div>
+<div class = "col s4">
+    <div class="card articleContainer">
+        <h4 class="articleMenuHeader">Aranjate</h4>
+        <div class="articleLists"
+            cdkDropList
+            #positionated = "cdkDropList"
+            [cdkDropListData] = "articleLists[1]"
+            [cdkDropListConnectedTo]="[available, published]"
+            (cdkDropListDropped)="drop($event)">
+            <div class="card article" *ngFor="let article of articleLists[1]" (click)="openTextDialog(article)" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
+                <h5 style="margin-bottom: 0%;">{{ article.date }}</h5>
+                <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+            </div>
+            <div *ngIf="articleLists[1].length == 0" class="space">
+            </div>
+        </div>
+        <a class="waves-effect waves-light waves-blue btn btn-flat" (click)="openNewArticleDialog(2)"><i class="material-icons left">add</i>adaugă un articol</a>
+    </div>
+</div>
+<div class = "col s4">
+    <div class="card articleContainer">
+        <i class="material-icons right" style="cursor: pointer;" (click)="nextGeneration()">arrow_forward</i>
+        <h4 class="articleMenuHeader">Publicate</h4>
+        <div class="articleLists"
+            cdkDropList
+            #published = "cdkDropList"
+            [cdkDropListData] = "articleLists[2]"
+            [cdkDropListConnectedTo]="[available, positionated]"
+            (cdkDropListDropped)="drop($event)">
+            <div class="card article" *ngFor="let article of articleLists[2]" (click)="openTextDialog(article)" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
+                <h5 style="margin-bottom: 0%;">{{ article.date }}</h5>
+                <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+            </div>
+            <div *ngIf="articleLists[2].length == 0" class="space">
+            </div>
+        </div>
+        
+        <a class="waves-effect waves-light waves-blue btn btn-flat" (click)="openNewArticleDialog(3)"><i class="material-icons left">add</i>adaugă un articol</a>
+    </div>
+</div>

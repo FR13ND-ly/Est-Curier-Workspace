@@ -1,0 +1,48 @@
+<mat-toolbar class="header">
+  <span class="title">Est-Curier WorkSpace</span>
+</mat-toolbar>
+<div class="row">
+  <div class="col s9">
+    <mat-tab-group>
+      <mat-tab label="Articole">
+        <app-articles></app-articles>
+      </mat-tab>
+      <mat-tab label="Păgini">
+        <app-pages></app-pages>
+      </mat-tab>
+      <mat-tab label="Fișiere"> 
+        <app-files-manager></app-files-manager> 
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div class="col s3">
+    <div class="card">
+      <div class="card-content center">
+        <h1 *ngIf="occuped" class="red-text">Ocupat</h1>
+        <h1 *ngIf="!occuped" class="green-text">Liber</h1>
+        <div class="switch">
+          <label>
+            Liber
+            <input (change)="changeStatus()" type="checkbox" [(ngModel)]="occuped">
+            <span class="lever"></span>
+            Ocupat
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="card blue white-text" style="margin-top: 4vh;">
+      <div class="card-content">
+        <i class="material-icons left">message</i>Mesaje
+      </div>
+    </div>
+    <div style="max-height: 45vh; overflow-y: scroll;">
+      <div class="card" *ngFor="let m of messages">
+        <div class="card-content">
+          <h5>{{ m.date }}</h5>
+          <p style="font-size: 20px; line-height: normal;">{{ m.text }}</p>
+        </div>
+      </div>
+    </div>
+    <input class="col s12" placeholder="Scrie un mesaj..." (keydown)="sendMessage($event)" [(ngModel)]="message">
+  </div>
+</div>

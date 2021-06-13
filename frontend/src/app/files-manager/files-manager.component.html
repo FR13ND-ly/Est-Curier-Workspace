@@ -1,0 +1,70 @@
+<div class="col s8">
+    <div class="file-field input-field">
+        <div class="btn col s12 blue">
+            <span>Adaugă fișiere</span>
+            <input type="file" (change)="downloadFile($event)">
+        </div>
+        <div class="file-path-wrapper">
+        </div>
+    </div>
+</div>
+<div class="col s4 file-field input-field ">
+    <button class="btn col s12" (click)="download()">Descarcă</button>
+</div>
+<div *ngFor="let file of files; let i = index">
+    <div class="col s3">
+        <div class="card" [class.selected]="selected.includes(file.id)" #container (click)="selectImage(container, file.id, $event, i)">
+            <div class="card-image" title="{{file.name}}">
+                <img src="{{file.file}}" class="image" *ngIf="file.file.slice(-3) != 'pdf'">
+                <img src="http://127.0.0.1:8000/api/media/download-pdf.png" class="image" alt="image" *ngIf="file.file.slice(-3) == 'pdf'">
+            </div>
+            <div class="card-content">
+                <p [class.red-text]="file.downloaded">{{file.name | formatPreview: 25}}</p>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="file.newEdition" class="col s12" style="margin-bottom: 2%; border-bottom: 1px #ccc solid;"></div>
+</div>
+<div class="col s12 center" *ngIf="loading">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+            <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+            </div><div class="circle-clipper right">
+            <div class="circle"></div>
+            </div>
+        </div>
+
+        <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+            <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+            </div><div class="circle-clipper right">
+            <div class="circle"></div>
+            </div>
+        </div>
+
+        <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+            <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+            </div><div class="circle-clipper right">
+            <div class="circle"></div>
+            </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+            <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+            </div><div class="circle-clipper right">
+            <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div>
