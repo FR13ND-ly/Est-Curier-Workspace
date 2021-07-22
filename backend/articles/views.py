@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 from django.conf import settings
 import fitz
 import zipfile
+from datetime import datetime
 
 def formatDate(date):
     new_date = date.strftime("%d %B %Y, %H:%M").split()
@@ -96,6 +97,7 @@ def getMessages(request):
     messages = []
     for i in messages_raw:
         messages.append({
+            "id" : i.id,
             "text" : i.text,
             "date" : formatDate(i.date)
         })
@@ -109,19 +111,25 @@ def sendMessage(request):
     newMessage.save()
     return JsonResponse({"status" : "Succes"}, safe=False)
 
+@csrf_exempt
+def removeMessage(request):
+    data = JSONParser().parse(request)
+    Message.objects.get(id = data['id']).delete()
+    return JsonResponse({"status" : "Succes"}, safe=False)
 
 @csrf_exempt
 def getPages(request):
     pages = []
-    for i in range(8):
-        page = Page.objects.get_or_create(id = i)[0]
-        pages.append("http://127.0.0.1:8000/api/media/pages/" + os.path.basename(page.file.name))
+    for page in Page.objects.all():
+        pages.append("http://127.0.0.1:8000/api/media/pages/" + os.path.basename(page.file.name) + "?" + datetime.now().strftime("%d%m%Y%H%M%S"))
     return JsonResponse({"pages" : pages}, safe=False)
 
 
 @csrf_exempt
 def setPages(request):
     file = request.FILES['file']
+    if os.path.exists(os.getcwd().replace("\\", "/") + "/media/main.pdf"):
+        os.remove(os.getcwd().replace("\\", "/") + "/media/main.pdf")
     path = default_storage.save('main.pdf', ContentFile(file.read()))
     doc = fitz.open(os.path.join(settings.MEDIA_ROOT, path))
     for i in range(8):
@@ -146,7 +154,6 @@ def getFiles(request):
             "file" : "http://127.0.0.1:8000/api/media/" + os.path.basename(i.file.name),
             "name" : i.file.name,
             "date" : formatDate(i.date),
-            "newEdition" : i.newEdition,
             "downloaded" : i.downloaded
         })
     response = {
@@ -165,7 +172,7 @@ def downloadFile(request):
 @csrf_exempt
 def prepareDownload(request):
     data = JSONParser().parse(request)
-    with zipfile.ZipFile('media/file-uri.zip', 'w') as zipObj:
+    with zipfile.ZipFile(os.getcwd().replace("\\", "/") + "/media/file-uri.zip", 'w') as zipObj:
         for i in data['files']:
             obj = File.objects.get(id = i)
             zipObj.write(obj.file.path, obj.file.name)
@@ -182,7 +189,8 @@ def nextGeneration(request):
     for article in Article.objects.filter(col = 2):
         article.col = 3
         article.save()
-    fileObj = File.objects.last()
-    fileObj.newEdition = True
-    fileObj.save()
+    for f in File.objects.all():
+        if os.path.exists(os.getcwd().replace("\\", "/") + "/media/" + str(f.file)):
+            os.remove(os.getcwd().replace("\\", "/") + "/media/" + str(f.file))
+        f.delete()
     return JsonResponse({"status" : "succes"}, safe=False)

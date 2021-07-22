@@ -1,0 +1,14 @@
+<div class="main">
+    <label for="upload-button" class="upload-button">Încarcă o imagine</label>
+    <input id="upload-button" style="display: none;" type="file" (change)="downloadFile($event)">
+    <button mat-raised-button (click)="download()" class="download" color="accent">Descarcă</button>
+    <button mat-icon-button (click)="getFiles()"><mat-icon>autorenew</mat-icon></button>
+    <div class="files-container">
+        <mat-card *ngFor="let file of files; let i = index" title="{{file.name}}" class="file" [class.selected]="selected.includes(file.id)" #container (click)="selectImage(container, file.id, $event, i)">
+            <img mat-card-image src="{{file.file}}" class="image" *ngIf="file.file.slice(-3) != 'pdf'">
+            <img mat-card-image src="https://finfowe.com/wp-content/uploads/2021/04/unnamed.png" class="image" alt="image" *ngIf="file.file.slice(-3) == 'pdf'">
+            <p [class.red-text]="file.downloaded" [style.color]="file.downloaded ? '#f44336' : ''">{{file.name | formatPreview: 25}}</p>
+        </mat-card>
+        <h2 *ngIf="!files?.length" style="text-align: center;">La moment nu sunt fișiere</h2>
+</div>
+</div>

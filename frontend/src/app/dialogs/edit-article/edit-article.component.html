@@ -1,0 +1,14 @@
+<form (submit)="onSaveChanges()">
+    <mat-form-field appearance="fill">
+        <mat-label>Titlu</mat-label>
+        <input matInput placeholder="Placeholder" [(ngModel)]="article.title" required [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Text</mat-label>
+        <textarea matInput placeholder="Placeholder" cdkTextareaAutosize [(ngModel)]="article.text" rows="5" required [ngModelOptions]="{standalone: true}"></textarea>
+    </mat-form-field>
+    <h3>Pagina:</h3>
+    <mat-slider min="1" max="8" step="1" thumbLabel style="width: 100%;" [(ngModel)]="article.pag" [ngModelOptions]="{standalone: true}"></mat-slider>
+    <button mat-raised-button color="primary" type="submit">Actualizează</button>
+    <button mat-raised-button color="warn" type="button" (click)="onDeleteArticle()" class="remove-button">Șterge</button>
+</form>

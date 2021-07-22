@@ -9,6 +9,8 @@ urlpatterns = [
     path('getStatus/', views.getStatus),
     path('getMessages/', views.getMessages),
     path('sendMessage/', views.sendMessage),
+    path('sendMessage/', views.sendMessage),
+    path('removeMessage/', views.removeMessage),
     path('changeStatus/', views.changeStatus),
     path('articles/', views.articles),
     path('addArticle/', views.addArticle),

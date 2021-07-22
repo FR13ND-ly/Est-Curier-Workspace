@@ -1,59 +1,66 @@
-<div class = "col s4">
-    <div class="card articleContainer">
-        <h4 class="articleMenuHeader">Disponibile</h4>
-        <div class="articleLists"
-            cdkDropList
-            #available = "cdkDropList"
-            [cdkDropListData] = "articleLists[0]"
-            [cdkDropListConnectedTo]="[positionated, published]"
-            (cdkDropListDropped)="drop($event)">
-            <div class="card article" *ngFor="let article of articleLists[0]" (click)="openTextDialog(article)" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
-                <h5 style="margin-bottom: 0%;">{{ article.date }}</h5>
-                <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+<div class="main">
+    <div class="list-container">
+        <mat-card class="list">
+            <h2>Disponibile</h2>
+            <div
+                cdkDropList
+                #available = "cdkDropList"
+                [cdkDropListData]="articleLists[0]"
+                [cdkDropListConnectedTo]="[positionated, published]"
+                (cdkDropListDropped)="drop($event)">
+                <mat-card (click)="onEditArticle(article, 1)" class="list-item" *ngFor="let article of articleLists[0]" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
+                    <h5>{{ article.date }}</h5>
+                    <p><b>pag.{{ article.pag }}</b> {{ article.title }}</p>
+                </mat-card>
+                <a href="https://docs.google.com/document/d/1FVwYvlqb8Fgk9S3dLPh_YMCf1Cn1p-byNzVony10iqk/edit" target="_blank"><mat-card class="list-item">
+                    <p><b>pag.6</b> Avize</p>
+                </mat-card></a>
+                <mat-card *ngIf="!articleLists[0].length" class="empty">
+                    <p>Lista e goală</p>
+                </mat-card>
             </div>
-            <div *ngIf="articleLists[0].length == 0" class="space">
-            </div>
-        </div>
-        <a class="waves-effect waves-light waves-blue btn btn-flat" (click)="openNewArticleDialog(1)"><i class="material-icons left">add</i>adaugă un articol</a>
+        </mat-card>
+        <button mat-raised-button (click)="onNewArticle(1)" class="list">Adaugă un articol</button>
     </div>
-</div>
-<div class = "col s4">
-    <div class="card articleContainer">
-        <h4 class="articleMenuHeader">Aranjate</h4>
-        <div class="articleLists"
-            cdkDropList
-            #positionated = "cdkDropList"
-            [cdkDropListData] = "articleLists[1]"
-            [cdkDropListConnectedTo]="[available, published]"
-            (cdkDropListDropped)="drop($event)">
-            <div class="card article" *ngFor="let article of articleLists[1]" (click)="openTextDialog(article)" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
-                <h5 style="margin-bottom: 0%;">{{ article.date }}</h5>
-                <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+    <div class="list-container">
+        <mat-card class="list">
+            <h2>Aranjate</h2>
+            <div
+                cdkDropList
+                #positionated = "cdkDropList"
+                [cdkDropListData] = "articleLists[1]"
+                [cdkDropListConnectedTo]="[available, published]"
+                (cdkDropListDropped)="drop($event)">
+                <mat-card (click)="onEditArticle(article, 2)" class="list-item" *ngFor="let article of articleLists[1]" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
+                    <h5>{{ article.date }}</h5>
+                    <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+                </mat-card>
+                <mat-card *ngIf="!articleLists[1].length" class="empty">
+                    <p>Lista e goală</p>
+                </mat-card>
             </div>
-            <div *ngIf="articleLists[1].length == 0" class="space">
-            </div>
-        </div>
-        <a class="waves-effect waves-light waves-blue btn btn-flat" (click)="openNewArticleDialog(2)"><i class="material-icons left">add</i>adaugă un articol</a>
+        </mat-card>
+        <button mat-raised-button (click)="onNewArticle(2)" class="list">Adaugă un articol</button>
     </div>
-</div>
-<div class = "col s4">
-    <div class="card articleContainer">
-        <i class="material-icons right" style="cursor: pointer;" (click)="nextGeneration()">arrow_forward</i>
-        <h4 class="articleMenuHeader">Publicate</h4>
-        <div class="articleLists"
-            cdkDropList
-            #published = "cdkDropList"
-            [cdkDropListData] = "articleLists[2]"
-            [cdkDropListConnectedTo]="[available, positionated]"
-            (cdkDropListDropped)="drop($event)">
-            <div class="card article" *ngFor="let article of articleLists[2]" (click)="openTextDialog(article)" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
-                <h5 style="margin-bottom: 0%;">{{ article.date }}</h5>
-                <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+    <div class="list-container">
+        <mat-card class="list">
+            <mat-icon mat-icon-button class="next-generation" (click)="nextGeneration()">update</mat-icon>
+            <h2>Publicate</h2>
+            <div
+                cdkDropList
+                #published = "cdkDropList"
+                [cdkDropListData] = "articleLists[2]"
+                [cdkDropListConnectedTo]="[available, positionated]"
+                (cdkDropListDropped)="drop($event)">
+                <mat-card (click)="onEditArticle(article, 2)" class="list-item" *ngFor="let article of articleLists[2]" cdkDrag (cdkDragStarted)="update = false" (cdkDragEnded)="update = false">
+                    <h5>{{ article.date }}</h5>
+                    <p><b>pag.{{article.pag}}</b> {{article.title}}</p>
+                </mat-card>
+                <mat-card *ngIf="!articleLists[2].length" class="empty">
+                    <p>Lista e goală</p>
+                </mat-card>
             </div>
-            <div *ngIf="articleLists[2].length == 0" class="space">
-            </div>
-        </div>
-        
-        <a class="waves-effect waves-light waves-blue btn btn-flat" (click)="openNewArticleDialog(3)"><i class="material-icons left">add</i>adaugă un articol</a>
+        </mat-card>
+        <button mat-raised-button (click)="onNewArticle(3)" class="list">Adaugă un articol</button>
     </div>
 </div>

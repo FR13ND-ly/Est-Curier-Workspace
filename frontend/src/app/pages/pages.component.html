@@ -1,9 +1,6 @@
-<div style="margin-top: 1vh;">
-    <img *ngFor="let image of pages" style="cursor: pointer; margin-bottom: 2vh;" (click)="showImage(image)" class="col s3" src="{{ image }}">
-    <div class="col s12 file-field input-field">
-        <div class="btn col s12">
-            <span>Adaugă păgini</span>
-            <input type="file"(change)="setPages($event)">
-        </div>
-    </div>
+<div class="pages-container">
+    <img *ngFor="let image of pages" class="page" (click)="showImage(image)" src="{{ image }}">
+    <label for="pages-upload" class="pages-upload">Actualizează paginile</label>
+    <input type="file" (change)="setPages($event)"  id="pages-upload" style="display: none;">
+    <button mat-icon-button (click)="getPages()" style="margin-top: 1.5%;"><mat-icon>autorenew</mat-icon></button>
 </div>

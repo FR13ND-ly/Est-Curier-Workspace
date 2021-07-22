@@ -1,4 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+@use '~@angular/material' as mat;
+@include mat.core();
+
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette(mat.$indigo-palette),
+    accent: mat.define-palette(mat.$teal-palette)
+  )
+));
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: mat.define-palette(mat.$deep-purple-palette),
+    accent: mat.define-palette(mat.$teal-palette)
+  )
+));
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme); 
+  .app-frame {
+    background-color: #263238;
+  }
+  .list {
+    background-color: #37474f
+  }
+  .list-item {
+    background-color: #607d8b
+  }
+  .cdk-drag-placeholder {
+    background-color: #627883!important;
+  }
+  .cdk-drag-preview {
+    background-color: #607d8b;
+    color: #fff;
+  }
+  .mat-dialog-container{
+    background-color: #37474f
+  }
+  .ng-star-inserted {
+    color: #fff;
+  }
+  .mat-snack-bar-container {
+    span {
+      color: #37474f
+    }
+  }
+  .selected {
+    background-color: #455a64!important;
+    color: #fff;
+  }
+  .file {
+    background-color: #37474f ;
+  }
+}
+
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+  .mat-app-background{
+    background-color: #eee!important;
+  }
+  .cdk-drag-placeholder {
+    background-color: #eeeeee;
+  }
+  .list-item {
+    background-color: #e8eaf6;
+  }
+  .selected {
+    background-color: #bdbdbd;
+    color: #212121;
+  }
+} 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #eee; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cdk-overlay-pane {
+  width: 40%!important;
+}
